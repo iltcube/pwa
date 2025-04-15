@@ -1,17 +1,24 @@
+import './assets/main.css'
+
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
+
 import { registerSW } from 'virtual:pwa-register'
 
 const updateSW = registerSW({
   onNeedRefresh() {
-    // Показываем пользователю сообщение о доступном обновлении
-    if (confirm('Доступна новая версия приложения. Обновить?')) {
+    if (confirm('Доступно обновление. Перезагрузить?')) {
       updateSW()
     }
   },
   onOfflineReady() {
-    console.log('Приложение готово для работы оффлайн')
-  }
+    console.log('Приложение готово к работе офлайн')
+  },
 })
 
-createApp(App).mount('#app')
+const app = createApp(App)
+
+app.use(router)
+
+app.mount('#app')
